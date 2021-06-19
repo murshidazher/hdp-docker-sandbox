@@ -1,6 +1,6 @@
 # [hdp-docker-sandbox](https://github.com/murshidazher/hdp-docker-sandbox)
 
-> Hortonworks Data Platform 2.6.5 sandbox through `docker` 🔥🔥🔥
+> Hortonworks Data Platform 2.6.5 & 3.0.1 sandbox through `docker` 🔥🔥🔥
 
 - To launch an automated hdp2.6.5 workflow in aws ec2 instance, look into this [repo](https://github.com/murshidazher/terraform-hadoop).
 
@@ -8,16 +8,17 @@
 
 - [hdp-docker-sandbox](#hdp-docker-sandbox)
   - [Table of Contents](#table-of-contents)
-  - [📚 Installing / Getting started](#-installing--getting-started)
+  - [Installing / Getting started](#installing--getting-started)
     - [Installing Docker](#installing-docker)
     - [Install HDP 2.6.5](#install-hdp-265)
+    - [Install HDP 3.0.1](#install-hdp-301)
   - [Credentials](#credentials)
   - [Restarting HDP](#restarting-hdp)
   - [Port Forwards](#port-forwards)
   - [References](#references)
   - [License](#license)
 
-## 📚 Installing / Getting started
+## Installing / Getting started
 
 Clone the repository
 
@@ -37,12 +38,26 @@ Install docker to the instance,
 
 ### Install HDP 2.6.5
 
+> :bulb: Recommended
+
 Run the docker deployment script,
 
 ```sh
 > docker info
 > cd hdp-docker-sandbox/HDP_2.6.5
 > sudo bash docker-deploy-hdp265.sh
+```
+
+### Install HDP 3.0.1
+
+> ⚠️ Hive View is not present in HDP `3.0.1` or Ambari `2.7`.
+
+Run the docker deployment script,
+
+```sh
+> docker info
+> cd hdp-docker-sandbox/HDP_3.0.1
+> sudo bash docker-deploy-hdp30.sh
 ```
 
 ## Credentials
