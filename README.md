@@ -14,6 +14,7 @@
     - [Install HDP 3.0.1](#install-hdp-301)
   - [Credentials](#credentials)
   - [Restarting HDP](#restarting-hdp)
+  - [Pausing and Resume Docker Container](#pausing-and-resume-docker-container)
   - [Port Forwards](#port-forwards)
   - [References](#references)
   - [License](#license)
@@ -71,6 +72,22 @@ To stop the running docker instance and restart the services,
 ```sh
 > cd hdp-docker-sandbox
 > sudo bash restart_docker.sh
+```
+
+## Pausing and Resume Docker Container
+
+To pause the container before stopping an ec2 instance,
+
+```sh
+> cd hdp-docker-sandbox
+> sudo bash pause_docker.sh
+```
+
+To resume the container after a restart,
+
+```sh
+> cd hdp-docker-sandbox
+> sudo bash resume_docker.sh
 ```
 
 ## [Port Forwards](https://www.cloudera.com/tutorials/hortonworks-sandbox-guide/3.html)
