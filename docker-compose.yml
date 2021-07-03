@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  maria_dev-volume:
+    image: hortonworks/sandbox-hdp:2.6.5
+  volumes:
+    - /hadoop/maria_dev:/home/maria_dev
+
+volumes:
+  maria_dev:
