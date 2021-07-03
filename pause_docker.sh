@@ -2,8 +2,8 @@
 
 set -eux -o
 
-# pause sandbox
-docker pause sandbox-hdp
+# start docker service
+sudo service docker start
 
-# pause proxy
-docker pause sandbox-proxy
+# pause sandbox
+docker pause $(docker ps -a -q --filter "status=running")

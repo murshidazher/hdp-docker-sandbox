@@ -2,8 +2,8 @@
 
 set -eux -o
 
-# resume sandbox
-docker unpause sandbox-hdp
+# start docker service
+sudo service docker start
 
-# resume proxy
-docker unpause sandbox-proxy
+# resume all stopped services
+docker start $(docker ps -a -q --filter "status=exited")

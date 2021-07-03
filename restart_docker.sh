@@ -2,6 +2,9 @@
 
 set -eux -o
 
+# start docker service
+sudo service docker start
+
 # to stop all containers
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
