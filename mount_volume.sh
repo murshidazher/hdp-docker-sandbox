@@ -22,4 +22,5 @@ docker-compose up -d && docker ps
 docker volume ls
 
 # docker volume inspect <volume_name>
+# ex. "/var/lib/docker/volumes/hdp-docker-sandbox_maria_dev/_dat"
 
