@@ -4,6 +4,12 @@
 # configures yum-cron to automatically install security updates hourly, 
 # and sets a system wide env to specify that I want the alpine tag of docker-compose.
 
+# clipboard
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo rpm -ivh epel-release-latest-7.noarch.rpm
+sudo yum-config-manager --enable epel
+sudo yum install xclip -y
+
 sudo yum -y install git docker yum-cron; \
  sudo sed -i '/update_cmd/s/= .*/= security/' /etc/yum/yum-cron-hourly.conf; \
  sudo sed -i '/update_messages/s/= .*/= no/' /etc/yum/yum-cron-hourly.conf; \

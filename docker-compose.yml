@@ -4,6 +4,6 @@ services:
   maria_dev_volume:
     image: hortonworks/sandbox-hdp:2.6.5
     volumes:
-      - maria_dev:/home/maria_dev
+      - maria_dev_gp_workspace:/home/maria_dev/gp-workspace
 volumes:
-  maria_dev:
+  maria_dev_gp_workspace:
