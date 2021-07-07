@@ -5,20 +5,13 @@
 ####========================================================
 sandbox-version
 
-== Sandbox Information ==
-Platform: hdp-security
-Build date: 06-18-2018
-Ambari version: 2.6.2.0-155
-Hadoop version: Hadoop 2.7.3.2.6.5.0-292
-OS: CentOS Linux release 7.5.1804 (Core)
-====
-
 ####========================================================
 ### Install Jupyter Dependencies
 ####========================================================
 pip install --ignore-installed pyparsing
 yum install epel-release
-sudo wget https://bootstrap.pypa.io/ez_setup.py -O - | python ;sudo yum install python-pip python-wheel python-devel gcc
+sudo wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+sudo yum install python-pip python-wheel python-devel gcc
 pip install --upgrade pip
 pip install --upgrade pip wheel pandas numpy scipy scikit-learn matplotlib virtualenv
 ####========================================================
@@ -46,7 +39,7 @@ set -x
 USER=$1
 JUPYTER_HOST=sandbox-hdp.hortonworks.com
 JUPYTER_PORT=8889
-su - ${USER} << EOF
+su - ${USER} <<EOF
 export SPARK_HOME=/usr/hdp/current/spark-client
 export PYSPARK_SUBMIT_ARGS="--master yarn-client pyspark-shell"
 export HADOOP_HOME=/usr/hdp/current/hadoop-client
