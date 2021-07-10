@@ -62,7 +62,7 @@ exit 0
 chown -R spark:hadoop /ibm
 chmod 777 /ibm/scripts/start_jupyter.sh
 cd /ibm/scripts
-./start_jupyter.sh spark
+bash start_jupyter.sh spark
 ####========================================================
 ### Copy the link from above step's output and paste to your computer's browser
 ####========================================================
