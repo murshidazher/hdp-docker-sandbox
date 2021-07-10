@@ -30,7 +30,10 @@ cp ~/.jupyter/jupyter_notebook_config.py /ibm/conf/
 ####========================================================
 ### Setup startup shell script
 ####========================================================
-vi /ibm/scripts/start_jupyter.sh
+cd /ibm
+mkdir scripts
+cd scripts/
+vi start_jupyter.sh
 
 #copy the paste the following contents
 
@@ -57,7 +60,7 @@ exit 0
 ####========================================================
 
 chown -R spark:hadoop /ibm
-chmod 777 /ibm/script/start_jupyter.sh
+chmod 777 /ibm/scripts/start_jupyter.sh
 cd /ibm/scripts
 ./start_jupyter.sh spark
 ####========================================================
