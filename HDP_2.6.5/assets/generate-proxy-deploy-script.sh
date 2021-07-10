@@ -2,11 +2,11 @@
 
 flavor=$(cat sandbox-flavor)
 if [ "$flavor" == "hdf" ]; then
- hdfEnabled=true
- hdpEnabled=false
+  hdfEnabled=true
+  hdpEnabled=false
 elif [ "$flavor" == "hdp" ]; then
- hdfEnabled=false
- hdpEnabled=true
+  hdfEnabled=false
+  hdpEnabled=true
 fi
 
 # Set the value to 'true' if the sandbox will be running on the VM.
@@ -21,7 +21,7 @@ fi
 #
 # HDF ports: (1080 4200 7777 7788 8000 8080 8744 8886 9088 61080 61888)
 # HDP ports: (4040 6080 8042 8088 8188 8886 8888 9995 11000 15000 16010 18081 19888 21000 50070 50075 50111)
-httpPorts=(1080 4200 7777 7788 8000 8080 8744 8886 9088 9089 61080 61888 4040 6080 8042 8088 8188 8888 9995 11000 15000 16010 18081 19888 21000 50070 50075 50111 8081)
+httpPorts=(1080 4200 7777 7788 8000 8080 8744 8886 9088 9089 61080 61888 4040 6080 8042 8088 8188 8888 9995 11000 15000 16010 18081 19888 21000 50070 50075 50111 8081 7070)
 
 # In the case of TCP/UDP ports, we can not filter incoming connections on
 # hostname, and so must then have 1-to-1 mappings from EXTERNAL_PORTs to
@@ -35,86 +35,84 @@ httpPorts=(1080 4200 7777 7788 8000 8080 8744 8886 9088 9089 61080 61888 4040 60
 #   2181 on HDF <- 2182
 #
 tcpPortsHDF=(
-[2202]=22
-[2182]=2181
-[4557]=4557
-[6627]=6627
-[6667]=6667
-[9090]=9090
-[9091]=9091
-[15500]=15500
+  [2202]=22
+  [2182]=2181
+  [4557]=4557
+  [6627]=6627
+  [6667]=6667
+  [9090]=9090
+  [9091]=9091
+  [15500]=15500
 )
 
 tcpPortsHDP=(
-[12049]=2049
-[2201]=22
-[2222]=22
-[1100]=1100
-[1111]=1111
-[12200]=1220
-[1988]=1988
-[2100]=2100
-[2181]=2181
-[3000]=3000
-[4242]=4242
-[5007]=5007
-[5011]=5011
-[6001]=6001
-[6003]=6003
-[6008]=6008
-[6188]=6188
-[8005]=8005
-[8020]=8020
-[8032]=8032
-[8040]=8040
-[8082]=8082
-[8086]=8086
-[8090]=8090
-[8091]=8091
-[8443]=8443
-[8765]=8765
-[8889]=8889
-[8983]=8983
-[8993]=8993
-[9000]=9000
-[9996]=9996
-[10000]=10000
-[10001]=10001
-[10015]=10015
-[10016]=10016
-[10500]=10500
-[10502]=10502
-[15002]=15002
-[16000]=16000
-[16020]=16020
-[16030]=16030
-[18080]=18080
-[33553]=33553
-[39419]=39419
-[42111]=42111
-[50079]=50079
-[50095]=50095
-[60000]=60000
-[60080]=60080
+  [12049]=2049
+  [2201]=22
+  [2222]=22
+  [1100]=1100
+  [1111]=1111
+  [12200]=1220
+  [1988]=1988
+  [2100]=2100
+  [2181]=2181
+  [3000]=3000
+  [4242]=4242
+  [5007]=5007
+  [5011]=5011
+  [6001]=6001
+  [6003]=6003
+  [6008]=6008
+  [6188]=6188
+  [8005]=8005
+  [8020]=8020
+  [8032]=8032
+  [8040]=8040
+  [8082]=8082
+  [8086]=8086
+  [8090]=8090
+  [8091]=8091
+  [8443]=8443
+  [8765]=8765
+  [8889]=8889
+  [8983]=8983
+  [8993]=8993
+  [9000]=9000
+  [9996]=9996
+  [7070]=7070
+  [10000]=10000
+  [10001]=10001
+  [10015]=10015
+  [10016]=10016
+  [10500]=10500
+  [10502]=10502
+  [15002]=15002
+  [16000]=16000
+  [16020]=16020
+  [16030]=16030
+  [18080]=18080
+  [33553]=33553
+  [39419]=39419
+  [42111]=42111
+  [50079]=50079
+  [50095]=50095
+  [60000]=60000
+  [60080]=60080
 )
 
 ######################################################################
 ########### No changes should be needed beyond this point. ###########
 ######################################################################
 
-
-
 # Clear conf files and then recreate necessary directories
 rm -rf sandbox
 mkdir -p sandbox/proxy/conf.d
 mkdir -p sandbox/proxy/conf.stream.d
 
-
 if [ "$hdfEnabled" = true ]; then
   name="sandbox-hdf-standalone-cda-ready"
   hostname="sandbox-hdf.hortonworks.com"
   for port in ${httpPorts[@]}; do
-    cat << EOF >> sandbox/proxy/conf.d/http-hdf.conf
+    cat <<EOF >>sandbox/proxy/conf.d/http-hdf.conf
 server {
   listen $port;
   server_name $hostname;
@@ -126,7 +124,7 @@ EOF
   done
 
   for origin in "${!tcpPortsHDF[@]}"; do
-    cat << EOF >> sandbox/proxy/conf.stream.d/tcp-hdf.conf
+    cat <<EOF >>sandbox/proxy/conf.stream.d/tcp-hdf.conf
 server {
   proxy_timeout 60m;
   listen $origin;
@@ -137,17 +135,17 @@ EOF
 fi
 
 if [ "$hdpEnabled" = true ]; then
- name="sandbox-hdp-security"
- hostname="sandbox-hdp.hortonworks.com"
- cat << EOF >> sandbox/proxy/conf.d/http-hdp.conf
+  name="sandbox-hdp-security"
+  hostname="sandbox-hdp.hortonworks.com"
+  cat <<EOF >>sandbox/proxy/conf.d/http-hdp.conf
 map \$http_upgrade \$connection_upgrade {
  default upgrade;
  '' close;
 }
 EOF
   for port in ${httpPorts[@]}; do
-   if [ $port == '9995' ]; then
-    cat << EOF >> sandbox/proxy/conf.d/http-hdp.conf
+    if [ $port == '9995' ]; then
+      cat <<EOF >>sandbox/proxy/conf.d/http-hdp.conf
 server {
   listen 9995;
   server_name sandbox-hdp.hortonworks.com;
@@ -159,8 +157,8 @@ server {
   }
 }
 EOF
-else
- cat << EOF >> sandbox/proxy/conf.d/http-hdp.conf
+    else
+      cat <<EOF >>sandbox/proxy/conf.d/http-hdp.conf
 server {
   listen $port;
   server_name $hostname;
@@ -169,36 +167,35 @@ server {
   }
 }
 EOF
-fi
+    fi
   done
 
   for origin in "${!tcpPortsHDP[@]}"; do
-   if [ $origin == '2201' ] || [ $origin == '2202' ]; then
-    cat << EOF >> sandbox/proxy/conf.stream.d/tcp-hdp.conf
+    if [ $origin == '2201' ] || [ $origin == '2202' ]; then
+      cat <<EOF >>sandbox/proxy/conf.stream.d/tcp-hdp.conf
 server {
   listen $origin;
   proxy_timeout 60m;
   proxy_pass $name:${tcpPortsHDP[$origin]};
 }
 EOF
-  else
-    cat << EOF >> sandbox/proxy/conf.stream.d/tcp-hdp.conf
+    else
+      cat <<EOF >>sandbox/proxy/conf.stream.d/tcp-hdp.conf
 server {
   listen $origin;
   proxy_pass $name:${tcpPortsHDP[$origin]};
 }
 EOF
-  fi
+    fi
   done
 fi
-
 
 # Generate the appropriate 'docker run' command by finding all ports to expose
 # (found in the above lists).
 
 absPath=$(pwd)
-version=$(docker images | grep hortonworks/sandbox-proxy  | awk '{print $2}');
-cat << EOF > sandbox/proxy/proxy-deploy.sh
+version=$(docker images | grep hortonworks/sandbox-proxy | awk '{print $2}')
+cat <<EOF >sandbox/proxy/proxy-deploy.sh
 #!/usr/bin/env bash
 docker rm -f sandbox-proxy 2>/dev/null
 docker run --name sandbox-proxy --network=cda \\
@@ -208,21 +205,21 @@ docker run --name sandbox-proxy --network=cda \\
 EOF
 
 for port in ${httpPorts[@]}; do
-  cat << EOF >> sandbox/proxy/proxy-deploy.sh
+  cat <<EOF >>sandbox/proxy/proxy-deploy.sh
 -p $port:$port \\
 EOF
 done
 for port in ${!tcpPortsHDF[@]}; do
-  cat << EOF >> sandbox/proxy/proxy-deploy.sh
+  cat <<EOF >>sandbox/proxy/proxy-deploy.sh
 -p $port:$port \\
 EOF
 done
 for port in ${!tcpPortsHDP[@]}; do
-  cat << EOF >> sandbox/proxy/proxy-deploy.sh
+  cat <<EOF >>sandbox/proxy/proxy-deploy.sh
 -p $port:$port \\
 EOF
 done
 
-cat << EOF >> sandbox/proxy/proxy-deploy.sh
+cat <<EOF >>sandbox/proxy/proxy-deploy.sh
 -d hortonworks/sandbox-proxy:$version
 EOF
