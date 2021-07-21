@@ -7,5 +7,6 @@ python3 --version
 pip3 install wheel pandas numpy scipy scikit-learn matplotlib virtualenv
 pip3 install jupyter
 pip3 install kaggle
+pip3 install plotly==5.1.0
 
 kaggle datasets download hk7797/stock-market-india
